@@ -1,15 +1,15 @@
-sequence_id;id;Character;Text;Type;choice_group;Target;Next
-1;0;sammy;j'ai très, très faim. S'il te plaît, donne moi à manger;audio;none;none;1.1
-1;1;player;CARESSER;choice;1;sammy;1.5
-1;2;player;JOUER;choice;1;sammy;1.6
-1;3;player;NOURRIR;choice;1;sammy;1.8
-1;4;sammy;ronronne;audio;none;none;1.5
-1;5;sammy;j'ai vraiment très, très, très faim, s'il te plaît, donne moi à manger;audio;none;none;1.1
-1;6;sammy;rigole;audio;none;none;1.7
-1;7;sammy;j'ai vraiment très, très, très faim, s'il te plaît, donne moi à manger;audio;none;none;1.1
-1;8;sammy;weeee;audio;none;none;2.0
-2;0;player;ALIMENT_1;choice;2;aliment_1;2.2
-2;1;player;ALIMENT_2;choice;2;aliment_2;2.3
-2;2;sammy;Mais, c'est pas très bon, et surtout j'ai encore faim moi;audio;none;none;2.0
-2;3;sammy;Beurk, j'ai toujours très faim;audio;none;none;3.0
-3;0;none;cutscene_shopping;audio;none;none;none
+﻿sequence_id;id;Character;Text;Type;choice_group;Target;Next
+0;0;sammy;j'ai très, très faim. S'il te plaît, donne moi à manger;audio;none;none;0.1
+0;1;player;CARESSER;choice;1;sammy;0.4
+0;2;player;JOUER;choice;1;sammy;0.6
+0;3;player;NOURRIR;choice;1;sammy;0.8
+0;4;sammy;ronronne;audio;none;none;0.5
+0;5;sammy;j'ai vraiment très, très, très faim, s'il te plaît, donne moi à manger;audio;none;none;0.2
+0;6;sammy;rigole;audio;none;none;0.7
+0;7;sammy;j'ai vraiment très, très, très faim, s'il te plaît, donne moi à manger;audio;none;none;0.3
+0;8;sammy;weeee;audio;none;none;1.0
+1;0;player;ALIMENT_1;choice;2;aliment_1;1.2
+1;1;player;ALIMENT_2;choice;2;aliment_2;1.3
+1;2;sammy;Mais, c'est pas très bon, et surtout j'ai encore faim moi;audio;none;none;1.1
+1;3;sammy;Beurk, j'ai toujours très faim;audio;none;none;2.0
+2;0;none;cutscene_shopping;audio;none;none;none

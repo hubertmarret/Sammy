@@ -58,7 +58,7 @@ public class DialogParser
                 var values = stringline.Split(';');
                 DialogLine line = new DialogLine
                 {
-                    sequence_id = Int32.Parse(values[0]) - 1,
+                    sequence_id = Int32.Parse(values[0]),
                     id = Int32.Parse(values[1]),
                     character = values[2],
                     text = values[3],
