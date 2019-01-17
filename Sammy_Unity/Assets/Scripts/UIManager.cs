@@ -18,15 +18,15 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        choices = new List<Choice>();
-        choices.Add(choice1);
-        choices.Add(choice2);
-        choices.Add(choice3);
+        //choices = new List<Choice>();
+        //choices.Add(choice1);
+        //choices.Add(choice2);
+        //choices.Add(choice3);
 
-        for (int i = 0; i < choices.Count; ++i)
-        {
-            AddChoice(choices[i], i);
-        }
+        //for (int i = 0; i < choices.Count; ++i)
+        //{
+        //    AddChoice(choices[i], i);
+        //}
     }
 
     public void AddChoice(Choice choice, int i)

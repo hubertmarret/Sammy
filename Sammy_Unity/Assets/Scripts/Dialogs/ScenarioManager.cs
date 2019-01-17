@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ScenarioManager : MonoBehaviour
@@ -37,12 +38,17 @@ public class ScenarioManager : MonoBehaviour
     {
         DialogLine line = GetCurrentLine();
         line.Print();
+
+
+
         ChangeLine();
     }
 
     private void ChangeSequence(int a_nextSequence)
     {
         currentSequence = a_nextSequence;
+        Debug.Log("LOAD SCENE : " + currentSequence);
+        SceneManager.LoadScene("Scene" + currentSequence);
     }
 
     private void ChangeLine()
