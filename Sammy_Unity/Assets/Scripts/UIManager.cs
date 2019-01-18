@@ -5,42 +5,71 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public Choice choice1;
-    public Choice choice2;
-    public Choice choice3;
-
     public Transform canvas;
-
-    public List<Choice> choices;
 
     public SimpleObjectPool choicePool;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //choices = new List<Choice>();
-        //choices.Add(choice1);
-        //choices.Add(choice2);
-        //choices.Add(choice3);
+    private List<ChoiceDisplay> choiceDisplays;
 
-        //for (int i = 0; i < choices.Count; ++i)
-        //{
-        //    AddChoice(choices[i], i);
-        //}
+    void Awake()
+    {
+        canvas = GameObject.Find("HUDCanvas").transform;
+        DontDestroyOnLoad(canvas.gameObject);
+
+        choicePool = GameObject.Find("ChoiceObjectPool").GetComponent<SimpleObjectPool>();
+
+        choiceDisplays = new List<ChoiceDisplay>();
     }
 
-    public void AddChoice(Choice choice, int i)
+    public void AddChoiceGroup(List<Choice> a_choiceGroup)
     {
-        GameObject newChoice = choicePool.GetObject();
-        newChoice.transform.SetParent(canvas);
+        foreach (Choice choice in a_choiceGroup)
+        {
+            AddChoiceD(choice);
+        }
 
-        ChoiceDisplay choiceDisplay = newChoice.GetComponent<ChoiceDisplay>();
-        choiceDisplay.Setup(choice, i);
+        switch (choiceDisplays.Count)
+        {
+            case 1: Display1Choice(choiceDisplays[0]); break;
+            case 2: Display2Choices(choiceDisplays[0], choiceDisplays[1]); break;
+            case 3: Display3Choices(choiceDisplays[0], choiceDisplays[1], choiceDisplays[2]); break;
+            default: Display1Choice(choiceDisplays[0]); break;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void AddChoiceD(Choice a_choice)
     {
-        
+        GameObject newChoiceButton = choicePool.GetObject();
+        newChoiceButton.transform.SetParent(canvas);
+
+        ChoiceDisplay choiceDisplay = newChoiceButton.GetComponent<ChoiceDisplay>();
+        choiceDisplay.Setup(a_choice);
+        choiceDisplays.Add(choiceDisplay);
+    }
+
+    public void RemoveChoiceGroup()
+    {
+        foreach (ChoiceDisplay choiceD in choiceDisplays)
+        {
+            choicePool.ReturnObject(choiceD.gameObject);
+        }
+        choiceDisplays.Clear();
+    }
+
+    private void Display1Choice(ChoiceDisplay a_choiceD)
+    {
+        a_choiceD.Display(new Vector3(0, 140));
+    }
+
+    private void Display2Choices(ChoiceDisplay a_choiceD1, ChoiceDisplay a_choiceD2)
+    {
+        a_choiceD1.Display(new Vector3(100, 80));
+        a_choiceD2.Display(new Vector3(-100, 80));
+    }
+    private void Display3Choices(ChoiceDisplay a_choiceD1, ChoiceDisplay a_choiceD2, ChoiceDisplay a_choiceD3)
+    {
+        a_choiceD1.Display(new Vector3(0, 140));
+        a_choiceD2.Display(new Vector3(-100, 80));
+        a_choiceD3.Display(new Vector3(100, 80));
     }
 }

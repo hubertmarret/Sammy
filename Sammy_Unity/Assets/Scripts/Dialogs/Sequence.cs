@@ -31,6 +31,20 @@ public class Sequence
         return lines[currentLine];
     }
 
+    public List<Choice> GetChoiceGroup(DialogLine a_line)
+    {
+        List<Choice> choiceGroup = new List<Choice>();
+        DialogLine line = a_line;
+
+        do
+        {
+            choiceGroup.Add(new Choice(line.id, line.text, line.target));
+            line = lines[line.id + 1];
+        } while (line.type == "choice" && line.choice_group == a_line.choice_group) ;
+
+        return choiceGroup;
+    }
+
     // return the next scenario id
     public int ChangeLine()
     {
@@ -39,6 +53,23 @@ public class Sequence
         int nextLine = Int32.Parse(next[1]);
 
         if(nextScenario == id)
+        {
+            currentLine = nextLine;
+        }
+        else
+        {
+            currentLine = 0;
+        }
+        return nextScenario;
+    }
+
+    public int ChangeLine(int a_choiceClicked)
+    {
+        var next = lines[a_choiceClicked].next.Split('.');
+        int nextScenario = Int32.Parse(next[0]);
+        int nextLine = Int32.Parse(next[1]);
+
+        if (nextScenario == id)
         {
             currentLine = nextLine;
         }

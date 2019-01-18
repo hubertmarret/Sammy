@@ -7,12 +7,14 @@ using UnityEngine.UI;
 public class ScenarioManager : MonoBehaviour
 {
     public Button testButton;
+    public Text subtitles;
 
     private int currentSequence;
     private List<Sequence> sequences;
 
     private DialogParser parser;
 
+    private UIManager uiManager;
 
     /////////////////////
     /// METHODS
@@ -26,7 +28,12 @@ public class ScenarioManager : MonoBehaviour
 
         sequences = parser.Parse();
 
+        uiManager = GameManager.instance.uiManager;
+
+        testButton = GameObject.Find("HUDCanvas").transform.Find("TestButton").gameObject.GetComponent<Button>();
         testButton.onClick.AddListener(TestButtonClicked); //test
+
+        subtitles = GameObject.Find("HUDCanvas").transform.Find("Subtitles").gameObject.GetComponent<Text>();
     }
 
     private void StartScenario()
@@ -34,14 +41,21 @@ public class ScenarioManager : MonoBehaviour
         ReadSequence();
     }
 
-    private void ReadSequence()
+    public void ReadSequence()
     {
         DialogLine line = GetCurrentLine();
-        line.Print();
+        //line.Print();
 
-
-
-        ChangeLine();
+        if(line.type == "choice")
+        {
+            List<Choice> choiceGroup = sequences[currentSequence].GetChoiceGroup(line);
+            uiManager.AddChoiceGroup(choiceGroup);
+        }
+        else
+        {
+            subtitles.text = line.text;
+            ChangeLine();
+        }
     }
 
     private void ChangeSequence(int a_nextSequence)
@@ -54,6 +68,17 @@ public class ScenarioManager : MonoBehaviour
     private void ChangeLine()
     {
         int nextSequence = sequences[currentSequence].ChangeLine();
+        if (nextSequence != currentSequence)
+        {
+            ChangeSequence(nextSequence);
+        }
+    }
+
+    public void ChangeLineFromChoice(int a_choiceClicked)
+    {
+        uiManager.RemoveChoiceGroup();
+        subtitles.text = sequences[currentSequence].GetDialogLine(a_choiceClicked).text;
+        int nextSequence = sequences[currentSequence].ChangeLine(a_choiceClicked);
         if (nextSequence != currentSequence)
         {
             ChangeSequence(nextSequence);
@@ -73,6 +98,7 @@ public class ScenarioManager : MonoBehaviour
     public void TestButtonClicked()
     {
         ReadSequence();
+        GetCurrentLine().Print();
     }
 
     public void PrintScenario()

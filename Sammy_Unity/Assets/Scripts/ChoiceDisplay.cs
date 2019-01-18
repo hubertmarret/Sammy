@@ -1,17 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ChoiceDisplay : MonoBehaviour
+public class ChoiceDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public GameObject target;
-    public Vector3 targetOffset1;
-    public Vector3 targetOffset2;
-    public Vector3 targetOffset3;
-
-    private Button button;
+    private int choiceID;
     private Text label;
+    private GameObject target;
+    private Button button;
+    private Vector3 originalScale;
 
     void Awake()
     {
@@ -20,39 +19,34 @@ public class ChoiceDisplay : MonoBehaviour
 
         label = GetComponentInChildren<Text>();
 
-        targetOffset1 = new Vector3(100, 80);
-        targetOffset2 = new Vector3(-100, 80);
-        targetOffset3 = new Vector3(0, 140);
+        originalScale = button.gameObject.transform.localScale;
+}
+
+    public void Setup(Choice a_choice)
+    {
+        choiceID = a_choice.id;
+        label.text = a_choice.text;
+        target = GameObject.Find(a_choice.target);
     }
 
-    public void Setup(Choice choice, int i)
+    public void Display(Vector3 a_targetOffset)
     {
-        label.text = choice.text;
-        target = GameObject.Find(choice.target);
-
-        Camera camera = GameObject.Find("Main Camera").GetComponent<Camera>();
-        Vector3 targetScreenPos = camera.WorldToScreenPoint(target.transform.position);
-        if(i == 0)
-        {
-            button.gameObject.transform.position = targetScreenPos + targetOffset1;
-        }
-        else if (i == 1)
-        {
-            button.gameObject.transform.position = targetScreenPos + targetOffset2;
-        }
-        else if (i == 2)
-        {
-            button.gameObject.transform.position = targetScreenPos + targetOffset3;
-        }
+        Vector3 targetScreenPos = Camera.main.WorldToScreenPoint(target.transform.position);
+        button.gameObject.transform.position = targetScreenPos + a_targetOffset;
     }
 
     public void ChoiceClicked()
     {
-        Debug.Log("Choice Clicked");
+        GameManager.instance.scenarioManager.ChangeLineFromChoice(choiceID);
     }
 
-    public void OnMouseOver()
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Choice Overed");
+        button.gameObject.transform.localScale *= 1.1f;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        button.gameObject.transform.localScale = originalScale;
     }
 }

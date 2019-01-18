@@ -9,6 +9,11 @@ public class SimpleObjectPool : MonoBehaviour
     // collection of currently inactive instances of the prefab
     private Stack<GameObject> inactiveInstances = new Stack<GameObject>();
 
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     // Returns an instance of the prefab
     public GameObject GetObject()
     {
