@@ -48,7 +48,13 @@ public class Sequence
     // return the next scenario id
     public int ChangeLine()
     {
-        var next = lines[currentLine].next.Split('.');
+        string nextline = lines[currentLine].next;
+        if (nextline == "none")
+        {
+            return -1;
+        }
+
+        var next = nextline.Split('.');
         int nextScenario = Int32.Parse(next[0]);
         int nextLine = Int32.Parse(next[1]);
 

@@ -68,7 +68,12 @@ public class ScenarioManager : MonoBehaviour
     private void ChangeLine()
     {
         int nextSequence = sequences[currentSequence].ChangeLine();
-        if (nextSequence != currentSequence)
+
+        if(nextSequence == -1)
+        {
+            SceneManager.LoadScene("EndScene");
+        }
+        else if (nextSequence != currentSequence)
         {
             ChangeSequence(nextSequence);
         }
