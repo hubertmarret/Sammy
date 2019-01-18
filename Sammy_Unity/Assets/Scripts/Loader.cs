@@ -22,7 +22,6 @@ public class Loader : MonoBehaviour
 
     private void StartClicked()
     {
-        Destroy(startButton.gameObject);
         SceneManager.LoadScene("Scene0");
     }
 }
