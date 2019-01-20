@@ -6,7 +6,7 @@ public class SequenceLauncher : MonoBehaviour
 {
     void Start()
     {
-        FadingManager.FadeIn(GameObject.FindGameObjectWithTag("Fond"), 1.0f);
+        FadingManager.FadeIn(GameObject.FindGameObjectWithTag("Fond"), 0.5f);
         GameManager.instance.scenarioManager.ReadSequence();
     }
 }

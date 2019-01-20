@@ -1,27 +1,26 @@
 sequence_id;id;Character;Text;Type;choice_group;Target;Next
 0;0;narrator;NARRATEUR1;audio;none;none;1.0
-1;0;narrator;NARRATEUR2;audio;none;none;1.1
-1;1;ambiance;COULOIR;audio;none;none;2.0
+1;0;narrator;COULOIR;audio;none;none;2.0
 2;0;player;Monter;choice;0;ladder;3.0
 3;0;player;S'approcher;choice;1;chest;4.0
 4;0;player;Ouvrir;choice;2;open;5.0
 4;1;player;Ne pas ouvrir;choice;2;close;4.2
-4;2;narrator;Mais t'es bête ou quoi ?;audio;none;none;0.0
-5;0;sammy;Bonjour, moi c'est Sammy;audio;none;none;5.1
+4;2;narrator;NARRATEUR2;audio;none;none;0.0
+5;0;sammy;GRENIER;audio;none;none;5.1
 5;1;player;Le prendre;choice;3;sammy;6.0
-6;0;sammy;j'ai très, très faim. S'il te plaît, donne moi à manger;audio;none;none;6.1
+6;0;sammy;GRENIER;audio;none;none;6.1
 6;1;player;Caresser;choice;4;sammy;6.4
 6;2;player;Jouer;choice;4;sammy;6.6
 6;3;player;Nourrir;choice;4;sammy;6.8
 6;4;sammy;ronronne;audio;none;none;6.5
-6;5;sammy;j'ai vraiment très, très, très faim, s'il te plaît, donne moi à manger;audio;none;none;6.1
+6;5;sammy;GRENIER;audio;none;none;6.1
 6;6;sammy;rigole;audio;none;none;6.7
-6;7;sammy;j'ai vraiment très, très, très faim, s'il te plaît, donne moi à manger;audio;none;none;6.1
+6;7;sammy;GRENIER;audio;none;none;6.1
 6;8;sammy;weeee;audio;none;none;7.0
 7;0;player;Prendre la carotte;choice;5;aliment_1;7.3
 7;1;player;Prendre les pommes de terre;choice;5;aliment_2;7.4
 7;2;player;Prendre la poire;choice;5;aliment_3;7.5
-7;3;sammy;Mais, c'est pas très bon, et surtout j'ai encore faim moi;audio;none;none;7.0
-7;4;sammy;Beurk, j'ai toujours très faim;audio;none;none;7.0
-7;5;sammy;Tu n'as pas autre chose ?;audio;none;none;8.0
+7;3;sammy;GRENIER;audio;none;none;7.0
+7;4;sammy;GRENIER;audio;none;none;7.0
+7;5;sammy;GRENIER;audio;none;none;8.0
 8;0;none;cutscene_shopping;audio;none;none;none

@@ -29,6 +29,18 @@ public class AudioPlayer : MonoBehaviour
         StartCoroutine(PlayWithDelay(1f));
     }
 
+    public bool Stop()
+    {
+        bool wasPlaying = false;
+        if(audioSource.isPlaying && dialogPlayed)
+        {
+            audioSource.Stop();
+            dialogPlayed = false;
+            wasPlaying = true;
+        }
+        return wasPlaying;
+    }
+
     void Update()
     {
         if (!audioSource.isPlaying && dialogPlayed)

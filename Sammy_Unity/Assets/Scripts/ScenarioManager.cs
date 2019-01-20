@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ScenarioManager : MonoBehaviour
 {
     public Button testButton;
+    public Button skipButton;
     public Text subtitles;
 
     private int currentSequence;
@@ -37,6 +38,9 @@ public class ScenarioManager : MonoBehaviour
         testButton = GameObject.Find("HUDCanvas").transform.Find("TestButton").gameObject.GetComponent<Button>();
         testButton.onClick.AddListener(TestButtonClicked); //test
 
+        skipButton = GameObject.Find("HUDCanvas").transform.Find("SkipButton").gameObject.GetComponent<Button>();
+        skipButton.onClick.AddListener(SkipButtonClicked); //test
+
         subtitles = GameObject.Find("HUDCanvas").transform.Find("Subtitles").gameObject.GetComponent<Text>();
     }
 
@@ -58,6 +62,7 @@ public class ScenarioManager : MonoBehaviour
         else
         {
             audioPlayer.Play(line.text);
+            skipButton.gameObject.SetActive(true);
             subtitles.text = line.text;
             //ChangeLine();
         }
@@ -66,12 +71,14 @@ public class ScenarioManager : MonoBehaviour
     private void ChangeSequence(int a_nextSequence)
     {
         currentSequence = a_nextSequence;
-        //Debug.Log("LOAD SCENE : " + currentSequence);
-        SceneManager.LoadScene("Scene" + currentSequence);
+        //SceneManager.LoadScene("Scene" + currentSequence);
+        FadingManager.FadeOut(GameObject.FindGameObjectWithTag("Fond"), 0.5f, "Scene" + currentSequence);
     }
 
     public void ChangeLine()
     {
+        skipButton.gameObject.SetActive(false);
+
         int nextSequence = sequences[currentSequence].ChangeLine();
 
         if(nextSequence == -1)
@@ -97,6 +104,10 @@ public class ScenarioManager : MonoBehaviour
         {
             ChangeSequence(nextSequence);
         }
+        else
+        {
+            ReadSequence();
+        }
     }
 
     public DialogLine GetCurrentLine()
@@ -109,10 +120,18 @@ public class ScenarioManager : MonoBehaviour
     /// TESTS
     /////////////////////
 
+    public void SkipButtonClicked()
+    {
+        if(audioPlayer.Stop())
+        {
+            skipButton.gameObject.SetActive(false);
+            ChangeLine();
+        }
+    }
+
     public void TestButtonClicked()
     {
         ReadSequence();
-        //GetCurrentLine().Print();
     }
 
     public void PrintScenario()

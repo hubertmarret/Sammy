@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38435ca8a22b2e34da5eced39e6c480e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondsToDelay: 22.7
+  secondsToDelay: 19.5
   spriteToLoad: {fileID: 21300000, guid: 38cc2f0632541514bab36fd54f3e0f8f, type: 3}
 --- !u!1 &492944815
 GameObject:
