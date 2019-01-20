@@ -20,14 +20,19 @@ public static class SpriteFunctions
         float worldScreenHeight = theCamera.orthographicSize * 2.0f;
         float worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
 
-        if (fitToScreenWidth != 0)
+        if (fitToScreenWidth == 0 && fitToScreenHeight != 0)
         {
-            theSprite.transform.localScale = new Vector3(worldScreenWidth / width / fitToScreenWidth, theSprite.transform.localScale.y, theSprite.transform.localScale.z);
+            theSprite.transform.localScale = new Vector3(worldScreenHeight / height / fitToScreenHeight, worldScreenHeight / height / fitToScreenHeight, theSprite.transform.localScale.z);
         }
 
-        if (fitToScreenHeight != 0)
+        else if (fitToScreenWidth != 0 && fitToScreenHeight == 0)
         {
-            theSprite.transform.localScale = new Vector3(theSprite.transform.localScale.x, worldScreenHeight / height / fitToScreenHeight, theSprite.transform.localScale.z);
+            theSprite.transform.localScale = new Vector3(worldScreenWidth / width / fitToScreenWidth, worldScreenWidth / width / fitToScreenWidth, theSprite.transform.localScale.z);
+        }
+
+        else if (fitToScreenWidth != 0 && fitToScreenHeight != 0)
+        {
+            theSprite.transform.localScale = new Vector3(worldScreenWidth / width / fitToScreenWidth, worldScreenHeight / height / fitToScreenHeight, theSprite.transform.localScale.z);
         }
     }
 }

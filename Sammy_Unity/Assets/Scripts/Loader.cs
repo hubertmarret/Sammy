@@ -22,6 +22,9 @@ public class Loader : MonoBehaviour
 
     private void StartClicked()
     {
-        SceneManager.LoadScene("Scene0");
+        FadingManager.FadeOut(GameObject.FindGameObjectWithTag("Fond"), 1.0f, "Scene0");
+        AudioSource src = GameObject.FindGameObjectWithTag("Theme").GetComponent<MusicClass>().GetAudioSource();
+        AudioManager.FadeOut(src, 2.0f, 0.20f);
+        //SceneManager.LoadScene("Scene0");
     }
 }

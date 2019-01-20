@@ -39,6 +39,10 @@ public class Sequence
         do
         {
             choiceGroup.Add(new Choice(line.id, line.text, line.target));
+            if(line.id + 1 == lines.Count)
+            {
+                break;
+            }
             line = lines[line.id + 1];
         } while (line.type == "choice" && line.choice_group == a_line.choice_group) ;
 

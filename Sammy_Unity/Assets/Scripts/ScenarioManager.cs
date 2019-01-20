@@ -16,6 +16,8 @@ public class ScenarioManager : MonoBehaviour
 
     private UIManager uiManager;
 
+    private AudioPlayer audioPlayer;
+
     /////////////////////
     /// METHODS
     /////////////////////
@@ -24,11 +26,13 @@ public class ScenarioManager : MonoBehaviour
     {
         currentSequence = 0;
 
-        parser = new DialogParser("Assets/Resources/Dialogues.csv");
+        parser = new DialogParser("Assets/Resources/Dialogs.csv");
 
         sequences = parser.Parse();
 
         uiManager = GameManager.instance.uiManager;
+
+        audioPlayer = GameObject.Find("Audio Player").GetComponent<AudioPlayer>();
 
         testButton = GameObject.Find("HUDCanvas").transform.Find("TestButton").gameObject.GetComponent<Button>();
         testButton.onClick.AddListener(TestButtonClicked); //test
@@ -36,7 +40,7 @@ public class ScenarioManager : MonoBehaviour
         subtitles = GameObject.Find("HUDCanvas").transform.Find("Subtitles").gameObject.GetComponent<Text>();
     }
 
-    private void StartScenario()
+    public void StartScenario()
     {
         ReadSequence();
     }
@@ -53,19 +57,20 @@ public class ScenarioManager : MonoBehaviour
         }
         else
         {
+            audioPlayer.Play(line.text);
             subtitles.text = line.text;
-            ChangeLine();
+            //ChangeLine();
         }
     }
 
     private void ChangeSequence(int a_nextSequence)
     {
         currentSequence = a_nextSequence;
-        Debug.Log("LOAD SCENE : " + currentSequence);
+        //Debug.Log("LOAD SCENE : " + currentSequence);
         SceneManager.LoadScene("Scene" + currentSequence);
     }
 
-    private void ChangeLine()
+    public void ChangeLine()
     {
         int nextSequence = sequences[currentSequence].ChangeLine();
 
@@ -76,6 +81,10 @@ public class ScenarioManager : MonoBehaviour
         else if (nextSequence != currentSequence)
         {
             ChangeSequence(nextSequence);
+        }
+        else
+        {
+            ReadSequence();
         }
     }
 
@@ -90,7 +99,7 @@ public class ScenarioManager : MonoBehaviour
         }
     }
 
-    private DialogLine GetCurrentLine()
+    public DialogLine GetCurrentLine()
     {
         return sequences[currentSequence].GetCurrentLine();
     }
@@ -103,7 +112,7 @@ public class ScenarioManager : MonoBehaviour
     public void TestButtonClicked()
     {
         ReadSequence();
-        GetCurrentLine().Print();
+        //GetCurrentLine().Print();
     }
 
     public void PrintScenario()
